@@ -1,0 +1,14 @@
+{
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+  ],
+  "eslint.workingDirectories": [
+      "./client" // Adjust this path if your client code is in a different directory
+  ]
+}
