@@ -19,7 +19,7 @@ const pool = new Pool({
 app.use(express.json()); // Middleware to parse JSON bodies
 
 // Register User
-app.post('/register', async (req, res) => {
+app.post('users/register', async (req, res) => {
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -37,7 +37,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Login User
-app.post('/login', async (req, res) => {
+app.post('users/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
