@@ -5,7 +5,10 @@ const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 
 const app = express();
+const cors = require('cors');
 const port = 3000;
+
+app.use(cors());
 
 // Pool for PostgreSQL connection
 const pool = new Pool({
@@ -18,15 +21,17 @@ const pool = new Pool({
 
 app.use(express.json()); // Middleware to parse JSON bodies
 
+
+
 // Register User
-app.post('users/register', async (req, res) => {
-  const { username, email, password } = req.body;
+app.post('/users/register', async (req, res) => {
+  const { email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     const result = await pool.query(
-      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email',
-      [username, email, hashedPassword]
+      'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email',
+      [email, hashedPassword]
     );
     const newUser = result.rows[0];
     res.status(201).json(newUser);
@@ -37,7 +42,7 @@ app.post('users/register', async (req, res) => {
 });
 
 // Login User
-app.post('users/login', async (req, res) => {
+app.post('/users/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {

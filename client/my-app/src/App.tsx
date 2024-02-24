@@ -2,14 +2,12 @@
 import { AuthForm } from './components/AuthForm'
 
 function App() {
-  const baseUrl = import.meta.env.REACT_APP_BASE_URL
-
-  console.log(baseUrl)
+  const baseUrl = import.meta.env.VITE_BASE_URL
+  console.log(baseUrl) //TODO: Fix read of env variable
 
   return (
     <>
-      <p>hello world</p>
-      <AuthForm apiUrl={baseUrl} />
+      <AuthForm apiUrl={baseUrl || 'http://localhost:3000'} />
     </>
   )
 }
